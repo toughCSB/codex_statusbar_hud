@@ -1,0 +1,9 @@
+{
+  "codex-rs/tui/src/bottom_pane/mod.rs": "944cc19387b665e55982c8dc4db3ae4a48d56e8774331b261bb47d862a4b73c5",
+  "codex-rs/tui/src/bottom_pane/chat_composer.rs": "7de649be46a9b5521159a7dd229e959140c3b792847323cca0e0bd9aac041509",
+  "codex-rs/tui/src/chatwidget/status_surfaces.rs": "3ed5cd1064bea4b7e945acecc4c428f092774d90d9d51b0bce6c05b12a0cecde",
+  "codex-rs/tui/src/bottom_pane/chat_composer/footer_state.rs": "8b7c918932db06e13e6ab06c9ad0d169f45e33320b176723fcb183b88f2cc8b3",
+  "codex-rs/tui/src/bottom_pane/chat_composer/status_surface_tests.rs": "d28634449ad67fa964bb71f4a18a13b0bfeb2e7d5dfacc8d3fd569ba60b6c003",
+  "codex-rs/tui/src/bottom_pane/chat_composer/status_surface.rs": "2be194f32f8f1478757c17bd7a7e71b7076d0a0f2bde9d87bb7c1dd20611f385",
+  "codex-rs/tui/src/chatwidget/rainbow_hud.rs": "07baec39308efcf6278f258afb57df49a2c2428bcf7cd8a72f19a64009d4d497"
+}

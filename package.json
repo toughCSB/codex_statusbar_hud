@@ -1,0 +1,11 @@
+{
+  "name": "codex_statusbar_hud",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Codex native statusbar HUD design and maintenance",
+  "scripts": {
+    "check": "pwsh -NoProfile -File scripts/check.ps1",
+    "build": "pwsh -NoProfile -File scripts/build.ps1",
+    "test": "pwsh -NoProfile -File scripts/build.ps1 -TestOnly"
+  }
+}

@@ -1,0 +1,17 @@
+/artifacts/
+/logs/
+/node_modules/
+/.codex/
+/.env
+/codex/**/target/
+/codex/.git/
+*.tmp
+
+# Machine state and private session evidence are local only.
+/AGENTS.md
+/HANDOFF.md
+/DESIGN.md
+/handoff-manifest.json
+/project-setup-state.json
+/evidence/
+/patches/native-rainbow.patch
