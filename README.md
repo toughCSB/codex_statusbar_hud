@@ -42,7 +42,7 @@ npm test
 npm run build
 ```
 
-빌드는 사용자 홈의 `.codex-hud-target/debug/codex.exe`와 `artifacts/migration-checksums.json`을 생성합니다. 자동으로 설치하지 않습니다.
+Windows에 D 드라이브가 있으면 빌드 캐시는 `D:/DevCaches/Rust/codex-statusbar-hud`에 저장합니다. 없으면 프로젝트의 `.build-target`을 사용합니다. `artifacts/migration-checksums.json`도 생성하며 자동으로 설치하지 않습니다. 실제 출력 경로는 `./scripts/build.ps1 -Plan`에서 확인합니다.
 
 macOS에서는 `codex/codex-rs`에서 기존 Rust 환경으로 빌드합니다:
 
@@ -60,7 +60,8 @@ node ../../scripts/build-migration-manifest.mjs state ../../artifacts/migration-
 Windows 예시:
 
 ```powershell
-node --no-warnings scripts/install-native.mjs --binary "$env:USERPROFILE/.codex-hud-target/debug/codex.exe" --migration-manifest artifacts/migration-checksums.json
+$buildTarget = (./scripts/build.ps1 -Plan | ConvertFrom-Json).target
+node --no-warnings scripts/install-native.mjs --binary (Join-Path $buildTarget 'debug/codex.exe') --migration-manifest artifacts/migration-checksums.json
 ```
 
 출력된 계획을 확인한 뒤 같은 명령에 `--apply`를 추가합니다. 공식 npm vendor 바이너리와 공용 `config.toml`은 보존하고, npm launcher와 별도 관리 폴더를 사용합니다. 실행 중인 세션은 현재 바이너리를 계속 사용하므로 다음 실행 또는 직접 재개 시 새 HUD가 반영됩니다.

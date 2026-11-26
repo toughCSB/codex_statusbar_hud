@@ -1,0 +1,13 @@
+#!/bin/sh
+if [ "$#" -eq 3 ] && [ "$1" = "install" ] && [ "$2" = "-g" ] && [ "$3" = "@openai/codex" ]; then
+  if [ -z "${CODEX_HUD_NODE:-}" ] || [ -z "${CODEX_HUD_LAUNCHER:-}" ]; then
+    printf '%s\n' 'Codex HUD could not locate the safe updater.' >&2
+    exit 1
+  fi
+  exec "$CODEX_HUD_NODE" "$CODEX_HUD_LAUNCHER" update
+fi
+if [ -z "${CODEX_HUD_REAL_NPM:-}" ]; then
+  printf '%s\n' 'Codex HUD could not locate the original npm command.' >&2
+  exit 1
+fi
+exec "$CODEX_HUD_REAL_NPM" "$@"

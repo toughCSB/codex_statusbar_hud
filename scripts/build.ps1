@@ -3,7 +3,7 @@ param([switch]$Plan,[switch]$TestOnly)
 $ErrorActionPreference='Stop'
 $projectRoot=Split-Path -Parent $PSScriptRoot
 $sourceRoot=Join-Path $projectRoot 'codex/codex-rs'
-$targetRoot=Join-Path $env:USERPROFILE '.codex-hud-target'
+$targetRoot=if(Test-Path -LiteralPath 'D:\'){'D:\DevCaches\Rust\codex-statusbar-hud'}else{Join-Path $projectRoot '.build-target'}
 $cargoArgs=if($TestOnly){@('test','-p','codex-tui','--lib','rainbow','--','--nocapture')}else{@('build','-p','codex-cli')}
 if($Plan){[ordered]@{cwd=$sourceRoot;program='cargo';arguments=$cargoArgs;target=$targetRoot;normalize='project SQL source only';installAutomatically=$false;toolchain='existing installed default'}|ConvertTo-Json -Depth 6;exit 0}
 $installedToolchain=((& rustup toolchain list|Where-Object{$_ -match 'default'}|Select-Object -First 1) -split ' ')[0]

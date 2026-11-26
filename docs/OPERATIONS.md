@@ -1,5 +1,20 @@
 # 작업·빌드·설치·복구
 
+## 현재 설치본 점검 및 업데이트 호환 런타임 (`runtime/`)
+
+현재 실제 실행본은 공식 Codex 바이너리를 수정하지 않고 유지하는 `CodexHudIntegration` 실행기입니다. 런타임 원본 모듈과 단위 테스트는 저장소의 `runtime/` 디렉터리에 포함되어 있습니다. 아래 0.163.0 네이티브 빌드·설치 절차는 초기 구현에 관한 기록이므로 현재 설치본에 그대로 재적용하지 않습니다.
+
+`node scripts/check-runtime.cjs`는 현재 설치 폴더, 코드 manifest, 공식 실행 파일 버전, `--yolo` 라우팅, npm 직접 진입(`@openai/codex/bin/codex.js`), inline 상태바 및 멀티라인 래핑 상태바(`wrappedFooter=supported`) 지원을 읽기 전용으로 확인합니다. 실제 화면 검증은 별도로 필요합니다.
+
+2026-11-26부터는 좁은 가로 폭(20~140열)에서의 멀티라인 래핑 상태줄·하이픈 줄바꿈·추가 필드(`Main [default]` 등)·세션 시작 직후 상태줄·리사이즈 잔상 방지 및 반응형 3줄 축약 레이아웃을 지원합니다.
+
+- 런타임 단위 테스트: `node --test runtime/*.test.cjs`
+- Windows 런타임: `%LOCALAPPDATA%/CodexHudIntegration/current`
+- macOS 런타임: `~/.local/share/codex-hud-integration/current`
+- 이 디렉터리는 캐시가 아닌 실제 실행 구성요소입니다. 삭제하면 PATH와 프로필이 남아 있어도 HUD가 사라집니다.
+- 기존에 실행 중인 프로세스는 설치 파일 교체로 바뀌지 않습니다. 세션을 유지한 채 다음 실행·재개에서 수정본을 사용합니다.
+- 실제 로컬 검증 기록은 로컬 `HANDOFF.md`를 확인합니다.
+
 ## 검사와 빌드
 
 PowerShell 7에서 `./scripts/check.ps1`을 실행합니다. 소스 해시와 스크립트 문법, 기존 도구와 설치 상태를 읽기 전용으로 확인합니다. 설치되지 않은 컴퓨터에서도 소스 검사가 가능합니다.
@@ -9,7 +24,7 @@ PowerShell 7에서 `./scripts/check.ps1`을 실행합니다. 소스 해시와 �
 - `./scripts/build.ps1`: CLI와 migration manifest를 빌드합니다.
 - `node --test scripts/install-native.test.mjs`: 임시 설치본으로 설치 도구의 회귀 검사를 실행합니다.
 
-Windows 빌드는 기존 기본 Rust toolchain과 사용자 홈의 `.codex-hud-target` 캐시를 사용합니다. SQL 줄바꿈 정규화는 프로젝트 소스에만 적용하며 DB를 바꾸지 않습니다. 빌드 결과를 자동 설치하지 않습니다.
+Windows 빌드는 기존 기본 Rust toolchain을 사용합니다. D 드라이브가 있으면 클라우드 동기화 프로젝트 밖의 `D:/DevCaches/Rust/codex-statusbar-hud`에 캐시를 저장하고, 없으면 프로젝트의 `.build-target`을 사용합니다. 실제 출력 경로는 `./scripts/build.ps1 -Plan`에서 확인합니다. SQL 줄바꿈 정규화는 프로젝트 소스에만 적용하며 DB를 바꾸지 않습니다. 빌드 결과를 자동 설치하지 않습니다.
 
 macOS에서 `cargo build -p codex-cli` 후 `scripts/build-migration-manifest.mjs`에 `codex/codex-rs/state`, 출력 JSON 경로, 실제 빌드 바이너리 경로를 전달합니다. `CARGO_TARGET_DIR`을 지정했다면 실제 바이너리 위치를 사용해야 합니다.
 

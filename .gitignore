@@ -1,4 +1,5 @@
 /artifacts/
+/.build-target/
 /logs/
 /node_modules/
 /.codex/
@@ -15,3 +16,4 @@
 /project-setup-state.json
 /evidence/
 /patches/native-rainbow.patch
+/Codex HUD 이어하기.cmd

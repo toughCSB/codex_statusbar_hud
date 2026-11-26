@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+if ! command -v cygpath >/dev/null 2>&1; then
+  printf '%s\n' 'Codex HUD requires cygpath in Git Bash.' >&2
+  exit 1
+fi
+launcher="$(cygpath -w "$LOCALAPPDATA/CodexHudIntegration/current/codex-launcher.cjs")"
+exec node.exe "$launcher" "$@"
